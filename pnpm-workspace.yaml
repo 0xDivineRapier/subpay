@@ -1,0 +1,9 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+allowBuilds:
+  bcrypt: true
+  bigint-buffer: true
+  bufferutil: true
+  msgpackr-extract: true
+  utf-8-validate: true
