@@ -1,3 +1,4 @@
+// Using @solana/web3.js v2. Migration to v2 API surface in progress post-POC validation.
 import { SubscriptionPlan } from '../types.js';
 
 export interface DelegationParams {

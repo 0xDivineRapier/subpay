@@ -393,7 +393,7 @@ pnpm --filter @subpay/solana build
 | Layer | Technology |
 |---|---|
 | Language | TypeScript (strict) |
-| SDK | `@solana/web3.js` v1, React 18 |
+| SDK | `@solana/web3.js` v2, React 18 |
 | API | Fastify 4, `@sinclair/typebox` validation |
 | Queue | BullMQ 5 + Redis 7 |
 | Database | PostgreSQL 16 |

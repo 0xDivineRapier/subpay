@@ -1,3 +1,22 @@
+/**
+ * DELEGATION SERVICE — POC STATUS
+ *
+ * This service wraps Solana's native delegated spending / recurring payments
+ * primitive launched mid-2026. The on-chain instruction API is pending full
+ * public documentation and has not yet been validated against Mainnet.
+ *
+ * Current status: devnet approximation using standard SPL token transfer
+ * as a placeholder for the delegated recurring transfer instruction.
+ *
+ * BEFORE MAINNET LAUNCH:
+ * - Replace buildDelegatedTransfer() with the real recurring payments
+ *   program instruction once official docs are available
+ * - Validate delegation account PDA derivation against the live program
+ * - Run end-to-end POC on devnet with a real dApp integration
+ *
+ * See CLAUDE.md → Open Questions → OQ-1 for tracking status.
+ */
+
 import {
   Connection,
   Keypair,

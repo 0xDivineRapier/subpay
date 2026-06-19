@@ -188,3 +188,12 @@ All webhook payloads are HMAC-SHA256 signed. Verify with `X-SubPay-Signature: sh
 | `NEXTAUTH_SECRET` | NextAuth secret |
 | `ADMIN_EMAIL` | Operator login email |
 | `ADMIN_PASSWORD_HASH` | bcrypt hash of operator password |
+
+## Open Questions
+
+### OQ-1: Solana Recurring Payments Primitive API
+- **Status:** Unresolved — blocking Mainnet launch
+- **Question:** Does Solana's native recurring payments / delegated spending primitive have sufficient public documentation to build the final delegated transfer instruction?
+- **Current workaround:** `apps/relay/src/services/delegation.ts` uses a devnet SPL token transfer placeholder
+- **Resolution path:** Run Week 1 POC against devnet; update `buildDelegatedTransfer()` with real instruction; document findings here
+- **Owner:** Technical lead
