@@ -1,4 +1,6 @@
 import { SubPayConfig, SubPayError, SubPaySDKError, Subscription } from './types.js';
+import { SUBPAY_DEVNET_PUBLIC_KEY, DEVNET_RELAY_URL, MAINNET_RELAY_URL } from './config.js';
+import { validateApiKey } from './utils/validation.js';
 
 type SubscriptionStatus = Subscription['status'];
 
@@ -50,12 +52,23 @@ export class SubPayClient {
   };
 
   constructor(config: SubPayConfig) {
+    // Validate API key before any initialization — devnet key is rejected on Mainnet
+    validateApiKey(config.apiKey, config.network);
+
+    const isDevnetKey = config.apiKey === SUBPAY_DEVNET_PUBLIC_KEY;
+    if (isDevnetKey) {
+      console.warn(
+        '[SubPay] Using public devnet key. For production, generate a key at app.subpay.xyz',
+      );
+    }
+
+    // Devnet key forces devnet regardless of config.network
+    const effectiveNetwork = isDevnetKey ? 'devnet' : config.network;
+
     this.apiKey = config.apiKey;
     this.baseUrl =
       config.rpcEndpoint ??
-      (config.network === 'mainnet'
-        ? 'https://relay.subpay.so'
-        : 'https://relay-devnet.subpay.so');
+      (effectiveNetwork === 'mainnet' ? MAINNET_RELAY_URL : DEVNET_RELAY_URL);
 
     const fetch = this.fetch.bind(this);
 

@@ -53,6 +53,10 @@ export interface WebhookEvent {
     failureReason?: string;
     retryCount?: number;
     nextRetryAt?: string;
+    /** Short user-facing message for payment.failed events */
+    suggested_user_message?: string;
+    /** Long user-facing message with recovery steps for payment.failed events */
+    suggested_user_message_long?: string;
   };
 }
 
@@ -72,7 +76,13 @@ export type SubPayErrorCode =
   | 'UNAUTHORIZED'
   | 'SUBSCRIPTION_NOT_FOUND'
   | 'RELAY_BALANCE_LOW'
-  | 'NETWORK_ERROR';
+  | 'NETWORK_ERROR'
+  | 'DEVNET_KEY_ON_MAINNET';
+
+export type SubPayAnalyticsEvent =
+  | 'subpay:auth_view'
+  | 'subpay:auth_cancel'
+  | 'subpay:auth_success';
 
 export interface SubPayError {
   code: SubPayErrorCode;

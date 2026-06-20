@@ -1,4 +1,5 @@
 import { SubPaySDKError, SubscriptionPlan } from '../types.js';
+import { SUBPAY_DEVNET_PUBLIC_KEY } from '../config.js';
 
 /**
  * Validates a SubscriptionPlan before any wallet interaction.
@@ -46,6 +47,21 @@ export function validatePlan(plan: SubscriptionPlan): void {
       code: 'INVALID_PLAN',
       message: `Invalid subscription plan: ${errors.join('; ')}`,
       details: { errors },
+    });
+  }
+}
+
+
+/**
+ * Guards against using the public devnet key on Mainnet.
+ * Must be called before any RPC call or wallet interaction.
+ */
+export function validateApiKey(apiKey: string, network: 'mainnet' | 'devnet'): void {
+  if (apiKey === SUBPAY_DEVNET_PUBLIC_KEY && network === 'mainnet') {
+    throw new SubPaySDKError({
+      code: 'DEVNET_KEY_ON_MAINNET',
+      message:
+        'The public devnet key cannot be used on Mainnet. Generate a production key at app.subpay.xyz',
     });
   }
 }
