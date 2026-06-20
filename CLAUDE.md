@@ -178,6 +178,17 @@ All webhook payloads are HMAC-SHA256 signed. Verify with `X-SubPay-Signature: sh
 - Relay balance auto-polls every 30s via `useEffect + setInterval`
 - Destructive actions (cancel sub, revoke API key) require typing "confirm" in modal
 
+## Open Questions
+
+### OQ-1: Solana Recurring Payments Primitive API
+- **Status:** Unresolved — blocking Mainnet launch
+- **Question:** Does Solana's native recurring payments / delegated spending primitive have sufficient public documentation to build the final delegated transfer instruction?
+- **Current workaround:** `apps/relay/src/services/delegation.ts` uses a devnet SPL token transfer placeholder
+- **Resolution path:** Run Week 1 POC against devnet; update `buildDelegatedTransfer()` with real instruction; document findings here
+- **Owner:** Technical lead
+
+---
+
 ### Dashboard env vars
 
 | Variable | Description |
