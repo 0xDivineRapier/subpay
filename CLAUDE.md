@@ -159,6 +159,29 @@ All webhook payloads are HMAC-SHA256 signed. Verify with `X-SubPay-Signature: sh
 4. **validatePlan() runs before any wallet interaction** — security invariant
 5. **Relay balance checked before every charge** — reject if < 0.05 SOL
 
+## UX Standards (PRD v1.1)
+
+### Authorization Screen Copy Rules
+NEVER use: "delegate", "delegation", "spending authority", "program authority" in end-user-visible copy.
+USE instead: "authorize" (verb), "subscription" (noun).
+
+### Zero-Config Devnet Key
+Public devnet key: `pk_devnet_public_subpay_2026`
+Exported as `SUBPAY_DEVNET_PUBLIC_KEY` from @subpay/solana.
+Forces devnet network. Rejected on Mainnet with `DEVNET_KEY_ON_MAINNET` error.
+
+### Accessibility Standard
+All SDK components must pass axe-core with zero critical/serious violations.
+Run: `pnpm --filter @subpay/solana test` (includes `src/tests/accessibility.test.tsx`).
+Token overrides via CSS custom properties in `src/styles/tokens.css`.
+
+### SubscriptionManager
+Now MUST (not SHOULD). Authenticates via wallet only — no SubPay account required.
+Hosts confirmation modals for pause, resume, cancel.
+All confirmation modals: focus trap + Escape to dismiss.
+
+---
+
 ## Scheduler / Worker (Prompt 2)
 
 - Queue: `subpay:charges` (charge scheduler, 60s poll)
